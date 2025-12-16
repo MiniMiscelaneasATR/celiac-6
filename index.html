@@ -28,6 +28,10 @@
             padding: 30px 0;
             margin-top: 50px;
         }
+        .btn-outline-light.active {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: white;
+        }
     </style>
 </head>
 <body>
@@ -53,6 +57,30 @@
         <div class="container">
             <h1 class="display-4 fw-bold mb-3">Recetas Deliciosas Sin Gluten</h1>
             <p class="lead mb-4">Descubre recetas saludables y sabrosas aptas para celíacos</p>
+            
+            <!-- Buscador -->
+            <div class="row justify-content-center mb-3">
+                <div class="col-md-6">
+                    <div class="input-group input-group-lg">
+                        <input type="text" 
+                               class="form-control" 
+                               id="searchInput" 
+                               placeholder="Buscar recetas por nombre..."
+                               style="border-radius: 50px 0 0 50px;">
+                        <button class="btn btn-light" type="button" style="border-radius: 0 50px 50px 0;">
+                            🔍
+                        </button>
+                    </div>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-light me-2" onclick="filterByCategory('all')">Todas</button>
+                        <button class="btn btn-sm btn-outline-light me-2" onclick="filterByCategory('Desayuno')">Desayuno</button>
+                        <button class="btn btn-sm btn-outline-light me-2" onclick="filterByCategory('Plato Principal')">Platos</button>
+                        <button class="btn btn-sm btn-outline-light me-2" onclick="filterByCategory('Postre')">Postres</button>
+                        <button class="btn btn-sm btn-outline-light" onclick="filterByCategory('Snack')">Snacks</button>
+                    </div>
+                </div>
+            </div>
+            
             <a href="#recetas" class="btn btn-light btn-lg">Ver Recetas</a>
         </div>
     </section>
@@ -61,12 +89,16 @@
     <section id="recetas" class="py-5">
         <div class="container">
             <h2 class="text-center mb-5">Nuestras Recetas</h2>
-            <div class="row g-4">
+            <div id="noResults" class="text-center mb-4" style="display: none;">
+                <p class="text-muted">No se encontraron recetas con ese criterio de búsqueda.</p>
+            </div>
+            <div class="row g-4" id="recipesContainer">
                 <!-- Receta 1 -->
                 <div class="col-md-4">
                     <div class="card recipe-card">
                         <div class="card-body">
                             <span class="badge badge-gluten-free mb-2">Sin Gluten</span>
+                            <span class="badge bg-warning text-dark mb-2">Desayuno</span>
                             <h5 class="card-title">Pan de Arroz Casero</h5>
                             <p class="card-text">Un pan esponjoso y delicioso hecho con harina de arroz. Perfecto para el desayuno o la merienda.</p>
                             <h6 class="mt-3">Ingredientes:</h6>
@@ -87,6 +119,7 @@
                     <div class="card recipe-card">
                         <div class="card-body">
                             <span class="badge badge-gluten-free mb-2">Sin Gluten</span>
+                            <span class="badge bg-info text-white mb-2">Plato Principal</span>
                             <h5 class="card-title">Pizza con Base de Coliflor</h5>
                             <p class="card-text">Una alternativa saludable y crujiente a la pizza tradicional, con base de coliflor.</p>
                             <h6 class="mt-3">Ingredientes:</h6>
@@ -107,6 +140,7 @@
                     <div class="card recipe-card">
                         <div class="card-body">
                             <span class="badge badge-gluten-free mb-2">Sin Gluten</span>
+                            <span class="badge bg-danger text-white mb-2">Postre</span>
                             <h5 class="card-title">Brownies de Chocolate</h5>
                             <p class="card-text">Brownies húmedos y chocolatosos hechos con harina de almendras. Nadie notará que son sin gluten.</p>
                             <h6 class="mt-3">Ingredientes:</h6>
@@ -127,6 +161,7 @@
                     <div class="card recipe-card">
                         <div class="card-body">
                             <span class="badge badge-gluten-free mb-2">Sin Gluten</span>
+                            <span class="badge bg-danger text-white mb-2">Postre</span>
                             <h5 class="card-title">Tarta de Limón</h5>
                             <p class="card-text">Tarta refrescante con base de galletas sin gluten y relleno cremoso de limón. Perfecta para cualquier ocasión.</p>
                             <h6 class="mt-3">Ingredientes:</h6>
@@ -138,6 +173,181 @@
                                 <li>3 yemas de huevo</li>
                             </ul>
                             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal4">Ver Receta Completa</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receta 5 -->
+                <div class="col-md-4">
+                    <div class="card recipe-card">
+                        <div class="card-body">
+                            <span class="badge badge-gluten-free mb-2">Sin Gluten</span>
+                            <span class="badge bg-danger text-white mb-2">Postre</span>
+                            <h5 class="card-title">Tarta de Merengue</h5>
+                            <p class="card-text">Espectacular tarta con base crocante, relleno de crema pastelera y merengue italiano dorado. ¡Un clásico irresistible!</p>
+                            <h6 class="mt-3">Ingredientes:</h6>
+                            <ul class="small">
+                                <li>250g harina sin gluten</li>
+                                <li>500ml leche</li>
+                                <li>4 yemas + 4 claras</li>
+                                <li>200g azúcar</li>
+                                <li>1 cucharada de maicena</li>
+                            </ul>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal5">Ver Receta Completa</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receta 6 - Pastel de Choclo -->
+                <div class="col-md-4">
+                    <div class="card recipe-card">
+                        <div class="card-body">
+                            <span class="badge badge-gluten-free mb-2">Sin Gluten</span>
+                            <span class="badge bg-info text-white mb-2">Plato Principal</span>
+                            <span class="badge bg-secondary text-white mb-2">🇨🇱 Chileno</span>
+                            <h5 class="card-title">Pastel de Choclo</h5>
+                            <p class="card-text">Clásico chileno con pino de carne, pollo, aceitunas y huevo, cubierto con pasta de choclo gratinada. ¡Delicioso y naturalmente sin gluten!</p>
+                            <h6 class="mt-3">Ingredientes:</h6>
+                            <ul class="small">
+                                <li>6 choclos desgranados</li>
+                                <li>500g carne molida</li>
+                                <li>2 pechugas de pollo</li>
+                                <li>Aceitunas y pasas</li>
+                                <li>4 huevos duros</li>
+                            </ul>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal6">Ver Receta Completa</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receta 7 - Humitas -->
+                <div class="col-md-4">
+                    <div class="card recipe-card">
+                        <div class="card-body">
+                            <span class="badge badge-gluten-free mb-2">Sin Gluten</span>
+                            <span class="badge bg-info text-white mb-2">Plato Principal</span>
+                            <span class="badge bg-secondary text-white mb-2">🇨🇱 Chileno</span>
+                            <h5 class="card-title">Humitas</h5>
+                            <p class="card-text">Tradicional preparación chilena de choclo molido con albahaca, envueltas en hojas de choclo. Un sabor auténtico y reconfortante.</p>
+                            <h6 class="mt-3">Ingredientes:</h6>
+                            <ul class="small">
+                                <li>10 choclos tiernos</li>
+                                <li>1 cebolla grande</li>
+                                <li>Albahaca fresca</li>
+                                <li>Sal y pimienta</li>
+                                <li>Mantequilla</li>
+                            </ul>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal7">Ver Receta Completa</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receta 8 - Porotos Granados -->
+                <div class="col-md-4">
+                    <div class="card recipe-card">
+                        <div class="card-body">
+                            <span class="badge badge-gluten-free mb-2">Sin Gluten</span>
+                            <span class="badge bg-info text-white mb-2">Plato Principal</span>
+                            <span class="badge bg-secondary text-white mb-2">🇨🇱 Chileno</span>
+                            <h5 class="card-title">Porotos Granados</h5>
+                            <p class="card-text">Guiso tradicional de verano con porotos frescos, choclo, zapallo y albahaca. Un plato reconfortante y nutritivo.</p>
+                            <h6 class="mt-3">Ingredientes:</h6>
+                            <ul class="small">
+                                <li>500g porotos granados frescos</li>
+                                <li>3 choclos desgranados</li>
+                                <li>300g zapallo en cubos</li>
+                                <li>1 cebolla</li>
+                                <li>Albahaca y ají de color</li>
+                            </ul>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal8">Ver Receta Completa</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receta 9 - Charquicán -->
+                <div class="col-md-4">
+                    <div class="card recipe-card">
+                        <div class="card-body">
+                            <span class="badge badge-gluten-free mb-2">Sin Gluten</span>
+                            <span class="badge bg-info text-white mb-2">Plato Principal</span>
+                            <span class="badge bg-secondary text-white mb-2">🇨🇱 Chileno</span>
+                            <h5 class="card-title">Charquicán</h5>
+                            <p class="card-text">Guiso chileno de verduras picadas con carne, papas y zapallo. Perfecto para los días fríos, nutritivo y reconfortante.</p>
+                            <h6 class="mt-3">Ingredientes:</h6>
+                            <ul class="small">
+                                <li>500g carne molida o charqui</li>
+                                <li>4 papas</li>
+                                <li>300g zapallo</li>
+                                <li>2 zanahorias</li>
+                                <li>Choclo, arvejas y condimentos</li>
+                            </ul>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal9">Ver Receta Completa</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receta 10 - Bibimbap -->
+                <div class="col-md-4">
+                    <div class="card recipe-card">
+                        <div class="card-body">
+                            <span class="badge badge-gluten-free mb-2">Sin Gluten</span>
+                            <span class="badge bg-info text-white mb-2">Plato Principal</span>
+                            <span class="badge bg-dark text-white mb-2">🇰🇷 Coreano</span>
+                            <h5 class="card-title">Bibimbap Sin Gluten</h5>
+                            <p class="card-text">Bowl coreano colorido con arroz, vegetales salteados, carne y huevo. Usando salsa sin gluten, ¡un plato completo y equilibrado!</p>
+                            <h6 class="mt-3">Ingredientes:</h6>
+                            <ul class="small">
+                                <li>2 tazas arroz cocido</li>
+                                <li>200g carne de res</li>
+                                <li>Espinacas, zanahoria, brotes</li>
+                                <li>Salsa tamari sin gluten</li>
+                                <li>Huevo, sésamo y gochujang</li>
+                            </ul>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal10">Ver Receta Completa</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receta 11 - Onigiri -->
+                <div class="col-md-4">
+                    <div class="card recipe-card">
+                        <div class="card-body">
+                            <span class="badge badge-gluten-free mb-2">Sin Gluten</span>
+                            <span class="badge bg-warning text-dark mb-2">Snack</span>
+                            <span class="badge bg-dark text-white mb-2">🇯🇵 Japonés</span>
+                            <h5 class="card-title">Onigiri (Bolas de Arroz)</h5>
+                            <p class="card-text">Triángulos de arroz japonés rellenos, perfectos para snacks o lunch. Naturalmente sin gluten usando tamari en lugar de salsa de soja.</p>
+                            <h6 class="mt-3">Ingredientes:</h6>
+                            <ul class="small">
+                                <li>2 tazas arroz japonés</li>
+                                <li>Alga nori</li>
+                                <li>Sal marina</li>
+                                <li>Rellenos: atún, salmón, umeboshi</li>
+                                <li>Salsa tamari sin gluten</li>
+                            </ul>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal11">Ver Receta Completa</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receta 12 - Arroz Frito -->
+                <div class="col-md-4">
+                    <div class="card recipe-card">
+                        <div class="card-body">
+                            <span class="badge badge-gluten-free mb-2">Sin Gluten</span>
+                            <span class="badge bg-info text-white mb-2">Plato Principal</span>
+                            <span class="badge bg-dark text-white mb-2">🇨🇳 Chino</span>
+                            <h5 class="card-title">Arroz Frito Chino</h5>
+                            <p class="card-text">Clásico arroz frito con vegetales, huevo y proteína. Versión sin gluten usando tamari, ¡igualmente delicioso!</p>
+                            <h6 class="mt-3">Ingredientes:</h6>
+                            <ul class="small">
+                                <li>3 tazas arroz cocido frío</li>
+                                <li>2 huevos</li>
+                                <li>Zanahoria, arvejas, cebollín</li>
+                                <li>200g pollo o camarones</li>
+                                <li>Salsa tamari y aceite de sésamo</li>
+                            </ul>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal12">Ver Receta Completa</button>
                         </div>
                     </div>
                 </div>
@@ -171,7 +381,7 @@
             <h2 class="text-center mb-5">Contacto</h2>
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <form>
+                    <form id="contactForm">
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="nombre" required>
@@ -289,10 +499,367 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modal5" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tarta de Merengue</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Preparación de la base:</h6>
+                    <ol>
+                        <li>Mezcla la harina sin gluten con 100g de mantequilla hasta formar arena</li>
+                        <li>Agrega 1 yema y amasa hasta formar una masa</li>
+                        <li>Estira en un molde y hornea a 180°C por 20 minutos</li>
+                    </ol>
+                    <h6 class="mt-3">Crema pastelera:</h6>
+                    <ol>
+                        <li>Hierve la leche con 100g de azúcar</li>
+                        <li>Mezcla las 3 yemas restantes con maicena</li>
+                        <li>Incorpora la leche caliente y cocina hasta espesar</li>
+                        <li>Vierte sobre la base y deja enfriar</li>
+                    </ol>
+                    <h6 class="mt-3">Merengue italiano:</h6>
+                    <ol>
+                        <li>Bate las 4 claras a punto nieve</li>
+                        <li>Haz un almíbar con 100g de azúcar y 50ml de agua</li>
+                        <li>Incorpora el almíbar caliente a las claras sin dejar de batir</li>
+                        <li>Cubre la tarta con el merengue formando picos</li>
+                        <li>Dora con soplete o en horno a 200°C por 3 minutos</li>
+                    </ol>
+                    <p><strong>Tiempo:</strong> 90 minutos | <strong>Porciones:</strong> 10</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal6" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pastel de Choclo 🇨🇱</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Preparación del pino:</h6>
+                    <ol>
+                        <li>Sofríe cebolla picada en aceite hasta que esté transparente</li>
+                        <li>Agrega la carne molida y cocina hasta dorar</li>
+                        <li>Añade comino, ají de color, sal y pimienta al gusto</li>
+                        <li>Cocina el pollo en trozos aparte y desmenuza</li>
+                        <li>Mezcla carne, pollo, aceitunas, pasas y huevos duros en rodajas</li>
+                    </ol>
+                    <h6 class="mt-3">Pasta de choclo:</h6>
+                    <ol>
+                        <li>Muele los granos de choclo en procesadora con albahaca fresca</li>
+                        <li>Cocina en una olla con mantequilla, azúcar y sal</li>
+                        <li>Revuelve constantemente hasta que espese (unos 15 minutos)</li>
+                    </ol>
+                    <h6 class="mt-3">Armado:</h6>
+                    <ol>
+                        <li>En una fuente enmantequillada, coloca el pino de base</li>
+                        <li>Cubre completamente con la pasta de choclo</li>
+                        <li>Espolvorea azúcar por encima</li>
+                        <li>Hornea a 200°C por 30-40 minutos hasta dorar</li>
+                    </ol>
+                    <p><strong>Tiempo:</strong> 90 minutos | <strong>Porciones:</strong> 6-8</p>
+                    <div class="alert alert-info mt-3">
+                        <small><strong>Consejo:</strong> El pastel de choclo es naturalmente sin gluten. Asegúrate de usar ají de color puro sin aditivos.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal7" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Humitas 🇨🇱</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Preparación:</h6>
+                    <ol>
+                        <li>Desgrana los choclos y reserva las hojas más grandes y limpias</li>
+                        <li>Muele los granos de choclo hasta obtener una pasta (no muy fina)</li>
+                        <li>Sofríe la cebolla picada muy fina en mantequilla hasta que esté transparente</li>
+                        <li>Mezcla la pasta de choclo con la cebolla, albahaca picada, sal y pimienta</li>
+                        <li>La consistencia debe ser cremosa pero no líquida</li>
+                    </ol>
+                    <h6 class="mt-3">Armado de las humitas:</h6>
+                    <ol>
+                        <li>Toma 2 hojas de choclo superpuestas formando una cruz</li>
+                        <li>Coloca 2-3 cucharadas de la mezcla en el centro</li>
+                        <li>Dobla las hojas envolviendo la mezcla (como un paquete)</li>
+                        <li>Amarra con tiras de las mismas hojas o pabilo</li>
+                    </ol>
+                    <h6 class="mt-3">Cocción:</h6>
+                    <ol>
+                        <li>Coloca las humitas en una olla grande con agua hirviendo</li>
+                        <li>Cocina por 30-40 minutos a fuego medio</li>
+                        <li>Las hojas deben quedar de color verde oliva</li>
+                        <li>Sirve calientes, desenvolviendo cada humita</li>
+                    </ol>
+                    <p><strong>Tiempo:</strong> 60 minutos | <strong>Porciones:</strong> 10-12 humitas</p>
+                    <div class="alert alert-success mt-3">
+                        <small><strong>Tip:</strong> Las humitas son perfectas para el verano cuando el choclo está en su mejor momento. ¡Acompáñalas con tomates frescos!</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal8" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Porotos Granados 🇨🇱</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Preparación:</h6>
+                    <ol>
+                        <li>Cocina los porotos granados frescos en agua con sal hasta que estén tiernos (30-40 minutos)</li>
+                        <li>En una olla aparte, sofríe la cebolla picada en aceite hasta dorar</li>
+                        <li>Agrega ají de color, comino, sal y pimienta al sofrito</li>
+                        <li>Incorpora el zapallo en cubos y cocina por 10 minutos</li>
+                        <li>Añade los granos de choclo y cocina 5 minutos más</li>
+                        <li>Agrega los porotos cocidos con su agua de cocción</li>
+                        <li>Cocina a fuego medio por 15-20 minutos hasta que el zapallo se deshaga ligeramente</li>
+                        <li>Ajusta la consistencia con agua si es necesario</li>
+                        <li>Agrega albahaca fresca picada al final</li>
+                    </ol>
+                    <p><strong>Tiempo:</strong> 60 minutos | <strong>Porciones:</strong> 6</p>
+                    <div class="alert alert-info mt-3">
+                        <small><strong>Dato:</strong> Los porotos granados son un plato típico de verano en Chile. Puedes agregar longaniza o panceta para una versión más sustanciosa.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal9" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Charquicán 🇨🇱</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Preparación:</h6>
+                    <ol>
+                        <li>Sofríe la cebolla picada en aceite hasta que esté transparente</li>
+                        <li>Agrega la carne molida (o charqui desmenuzado) y dora bien</li>
+                        <li>Incorpora ají de color, comino, sal y pimienta</li>
+                        <li>Añade las papas, zanahorias y zapallo en cubos pequeños</li>
+                        <li>Cubre con agua o caldo hasta tapar las verduras</li>
+                        <li>Cocina a fuego medio por 20 minutos</li>
+                        <li>Agrega el choclo desgranado y las arvejas</li>
+                        <li>Cocina 10 minutos más hasta que las papas estén tiernas</li>
+                        <li>Machaca algunas papas contra los bordes de la olla para espesar</li>
+                        <li>Ajusta los condimentos y sirve caliente</li>
+                    </ol>
+                    <p><strong>Tiempo:</strong> 45 minutos | <strong>Porciones:</strong> 4-6</p>
+                    <div class="alert alert-warning mt-3">
+                        <small><strong>Variación:</strong> Puedes hacer charquicán vegetariano omitiendo la carne. Tradicionalmente se sirve con un huevo frito encima. ¡Delicioso!</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal10" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Bibimbap Sin Gluten 🇰🇷</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Preparación de los vegetales:</h6>
+                    <ol>
+                        <li>Blanquea las espinacas y exprímelas bien. Sazona con ajo, sésamo y tamari</li>
+                        <li>Corta la zanahoria en juliana y saltéala rápidamente</li>
+                        <li>Blanquea los brotes de soja (o usa frescos)</li>
+                        <li>Prepara cualquier otro vegetal: calabacín, champiñones, etc.</li>
+                    </ol>
+                    <h6 class="mt-3">Preparación de la carne:</h6>
+                    <ol>
+                        <li>Corta la carne de res en tiras finas</li>
+                        <li>Marina con salsa tamari, ajo, jengibre, sésamo y azúcar</li>
+                        <li>Saltea a fuego alto hasta dorar</li>
+                    </ol>
+                    <h6 class="mt-3">Armado del bibimbap:</h6>
+                    <ol>
+                        <li>Coloca el arroz caliente en un bowl grande</li>
+                        <li>Dispón los vegetales en secciones alrededor del arroz</li>
+                        <li>Coloca la carne en el centro</li>
+                        <li>Añade un huevo frito o pochado encima</li>
+                        <li>Espolvorea semillas de sésamo tostadas</li>
+                        <li>Sirve con gochujang (pasta de ají coreana - verificar que sea sin gluten)</li>
+                    </ol>
+                    <p><strong>Tiempo:</strong> 40 minutos | <strong>Porciones:</strong> 2</p>
+                    <div class="alert alert-danger mt-3">
+                        <small><strong>⚠️ Importante:</strong> Usa salsa tamari en lugar de salsa de soja regular. Verifica que el gochujang sea certificado sin gluten.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal11" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Onigiri (Bolas de Arroz) 🇯🇵</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Preparación del arroz:</h6>
+                    <ol>
+                        <li>Cocina arroz japonés (o de grano corto) según instrucciones</li>
+                        <li>Deja enfriar ligeramente, debe estar tibio</li>
+                        <li>Prepara un bowl con agua y sal para tus manos</li>
+                    </ol>
+                    <h6 class="mt-3">Preparación de rellenos:</h6>
+                    <ul>
+                        <li><strong>Atún mayo:</strong> Mezcla atún con mayo sin gluten</li>
+                        <li><strong>Salmón:</strong> Salmón cocido y desmenuzado con tamari</li>
+                        <li><strong>Umeboshi:</strong> Ciruela japonesa encurtida (naturalmente sin gluten)</li>
+                        <li><strong>Furikake:</strong> Condimento de algas y sésamo (verificar sin gluten)</li>
+                    </ul>
+                    <h6 class="mt-3">Armado de los onigiri:</h6>
+                    <ol>
+                        <li>Moja tus manos con agua salada</li>
+                        <li>Toma una porción de arroz (aprox. 1/2 taza)</li>
+                        <li>Haz un hueco en el centro y coloca el relleno</li>
+                        <li>Cubre con más arroz y moldea en forma triangular</li>
+                        <li>Presiona firmemente pero sin aplastar</li>
+                        <li>Envuelve con una tira de alga nori</li>
+                    </ol>
+                    <p><strong>Tiempo:</strong> 30 minutos | <strong>Porciones:</strong> 6-8 onigiri</p>
+                    <div class="alert alert-info mt-3">
+                        <small><strong>Tip:</strong> Los onigiri son perfectos para llevar al trabajo o escuela. ¡Se conservan bien por varias horas!</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal12" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Arroz Frito Chino 🇨🇳</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Preparación:</h6>
+                    <ol>
+                        <li>Usa arroz cocido del día anterior (debe estar frío y seco)</li>
+                        <li>Bate los huevos y haz un revuelto rápido. Reserva</li>
+                        <li>Calienta un wok o sartén grande a fuego muy alto</li>
+                        <li>Agrega aceite y saltea el pollo (o camarones) hasta dorar. Reserva</li>
+                        <li>Saltea la zanahoria en cubitos pequeños por 2 minutos</li>
+                        <li>Agrega las arvejas y cocina 1 minuto más</li>
+                        <li>Añade el arroz frío, rompiendo los grumos con la espátula</li>
+                        <li>Saltea constantemente a fuego alto por 3-4 minutos</li>
+                        <li>Incorpora el huevo, la proteína, cebollín picado</li>
+                        <li>Agrega salsa tamari al gusto (2-3 cucharadas)</li>
+                        <li>Rocía aceite de sésamo y mezcla bien</li>
+                        <li>Sirve inmediatamente bien caliente</li>
+                    </ol>
+                    <p><strong>Tiempo:</strong> 20 minutos | <strong>Porciones:</strong> 4</p>
+                    <div class="alert alert-success mt-3">
+                        <small><strong>Secreto del chef:</strong> La clave es usar arroz frío y wok muy caliente. ¡Nunca dejes de mover el arroz mientras lo cocinas!</small>
+                    </div>
+                    <div class="alert alert-danger mt-3">
+                        <small><strong>⚠️ Sin gluten:</strong> Usa TAMARI (salsa de soja sin gluten) en lugar de salsa de soja regular que contiene trigo.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script>
         // Establecer el año actual automáticamente
         document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Datos de las recetas
+        const recipes = [
+            { title: 'Pan de Arroz Casero', category: 'Desayuno', card: document.querySelector('.row.g-4 .col-md-4:nth-child(1)') },
+            { title: 'Pizza con Base de Coliflor', category: 'Plato Principal', card: document.querySelector('.row.g-4 .col-md-4:nth-child(2)') },
+            { title: 'Brownies de Chocolate', category: 'Postre', card: document.querySelector('.row.g-4 .col-md-4:nth-child(3)') },
+            { title: 'Tarta de Limón', category: 'Postre', card: document.querySelector('.row.g-4 .col-md-4:nth-child(4)') },
+            { title: 'Tarta de Merengue', category: 'Postre', card: document.querySelector('.row.g-4 .col-md-4:nth-child(5)') },
+            { title: 'Pastel de Choclo', category: 'Plato Principal', card: document.querySelector('.row.g-4 .col-md-4:nth-child(6)') },
+            { title: 'Humitas', category: 'Plato Principal', card: document.querySelector('.row.g-4 .col-md-4:nth-child(7)') },
+            { title: 'Porotos Granados', category: 'Plato Principal', card: document.querySelector('.row.g-4 .col-md-4:nth-child(8)') },
+            { title: 'Charquicán', category: 'Plato Principal', card: document.querySelector('.row.g-4 .col-md-4:nth-child(9)') },
+            { title: 'Bibimbap Sin Gluten', category: 'Plato Principal', card: document.querySelector('.row.g-4 .col-md-4:nth-child(10)') },
+            { title: 'Onigiri', category: 'Snack', card: document.querySelector('.row.g-4 .col-md-4:nth-child(11)') },
+            { title: 'Arroz Frito Chino', category: 'Plato Principal', card: document.querySelector('.row.g-4 .col-md-4:nth-child(12)') }
+        ];
+
+        const searchInput = document.getElementById('searchInput');
+        const recipesContainer = document.getElementById('recipesContainer');
+        const noResults = document.getElementById('noResults');
+        let currentCategory = 'all';
+
+        // Mover las cards al contenedor
+        recipes.forEach(recipe => {
+            if (recipe.card) {
+                recipesContainer.appendChild(recipe.card);
+            }
+        });
+
+        // Función de búsqueda
+        function searchRecipes() {
+            const searchTerm = searchInput.value.toLowerCase();
+            let visibleCount = 0;
+
+            recipes.forEach(recipe => {
+                if (recipe.card) {
+                    const matchesSearch = recipe.title.toLowerCase().includes(searchTerm);
+                    const matchesCategory = currentCategory === 'all' || recipe.category === currentCategory;
+                    
+                    if (matchesSearch && matchesCategory) {
+                        recipe.card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        recipe.card.style.display = 'none';
+                    }
+                }
+            });
+
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        // Función de filtro por categoría
+        function filterByCategory(category) {
+            currentCategory = category;
+            searchRecipes();
+            
+            // Actualizar botones activos
+            document.querySelectorAll('.btn-outline-light').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Event listener para el buscador
+        searchInput.addEventListener('input', searchRecipes);
+
+        // Manejar envío del formulario
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
+            this.reset();
+        });
     </script>
 </body>
 </html>
